@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function get_event_directory {
+    echo "${TMPDIR:-/tmp/}"
+}
+
+function get_event_path {
+    local event; event="$1"
+    echo "$(get_event_directory)vim-command-bus_${event}"
+}
+
+function main {
+    local event; event="$1"
+    shift
+
+    local event_path; event_path="$(get_event_path "$event")"
+
+    # The fswatch command doesn't fail if the file doesn't exist but it doesn't
+    # work when the file is eventually created.
+    if ! [ -f "$event_path" ]; then
+        echo Event \'"$event"\' not found! 1>&2
+        exit 1
+    fi
+
+    fswatch "$event_path" | xargs -n1 -I {} "$@"
+}
+
+main "$@"
