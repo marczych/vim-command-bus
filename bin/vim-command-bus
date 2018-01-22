@@ -24,7 +24,14 @@ function main {
         exit 1
     fi
 
-    fswatch --event Updated "$event_path" | xargs -n1 -I {} "$@"
+    # PlatformSpecific appears to be an event that is fired exactly once for
+    # every file change.
+    #
+    # - Not specifying any events worked on MacOS but triggered 3 times on
+    #   Ubuntu 14.04.
+    # - Specifying Updated worked on Ubuntu 14.04 but didn't trigger at all on
+    #   MacOS.
+    fswatch --event PlatformSpecific "$event_path" | xargs -n1 -I {} "$@"
 }
 
 main "$@"
