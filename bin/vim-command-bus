@@ -24,7 +24,7 @@ function main {
         exit 1
     fi
 
-    fswatch "$event_path" | xargs -n1 -I {} "$@"
+    fswatch --event Updated "$event_path" | xargs -n1 -I {} "$@"
 }
 
 main "$@"
