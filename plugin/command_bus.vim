@@ -1,14 +1,14 @@
 let g:command_bus#defaultEventName = 'default'
 
 function! command_bus#sendCommand(...)
-    let event = (a:0 >= 2) ? a:2 : g:command_bus#defaultEventName
+    let event = (a:0 >= 1) ? a:1 : g:command_bus#defaultEventName
     let path = command_bus#getEventPath(event)
     let command = 'touch '.path
     let output = system(command)
 endfunc
 
 function! command_bus#writeAndSend(...)
-    let event = (a:0 >= 2) ? a:2 : g:command_bus#defaultEventName
+    let event = (a:0 >= 1) ? a:1 : g:command_bus#defaultEventName
 
     " Save the file.
     execute "w"
