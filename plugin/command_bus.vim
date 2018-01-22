@@ -26,7 +26,7 @@ function! command_bus#getEventDirectory()
 endfunc
 
 function! command_bus#getEventPath(event)
-    return command_bus#getEventDirectory().'vim-command-bus_'.a:event
+    return command_bus#getEventDirectory().'/vim-command-bus_'.a:event
 endfunc
 
 command! -nargs=* CommandBus call command_bus#sendCommand(<f-args>)

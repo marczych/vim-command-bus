@@ -8,7 +8,7 @@ function get_event_directory {
 
 function get_event_path {
     local event; event="$1"
-    echo "$(get_event_directory)vim-command-bus_${event}"
+    echo "$(get_event_directory)/vim-command-bus_${event}"
 }
 
 function main {
