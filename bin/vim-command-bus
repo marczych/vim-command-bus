@@ -14,12 +14,18 @@ function get_event_path {
 function main {
     local event; event="${VIM_COMMAND_BUS_EVENT:-default}"
     local event_path; event_path="$(get_event_path "$event")"
+    local run_initial; run_initial="${VIM_COMMAND_BUS_RUN_INITIAL:-true}"
 
     # The fswatch command doesn't fail if the file doesn't exist but it doesn't
     # work when the file is eventually created.
     if ! [ -f "$event_path" ]; then
         echo Event \'"$event"\' not found! 1>&2
         exit 1
+    fi
+
+    # Run the command immediately if requested.
+    if [[ "$run_initial" == true ]]; then
+        "$@"
     fi
 
     # PlatformSpecific appears to be an event that is fired exactly once for
