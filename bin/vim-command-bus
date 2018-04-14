@@ -12,9 +12,7 @@ function get_event_path {
 }
 
 function main {
-    local event; event="$1"
-    shift
-
+    local event; event="${VIM_COMMAND_BUS_EVENT:-default}"
     local event_path; event_path="$(get_event_path "$event")"
 
     # The fswatch command doesn't fail if the file doesn't exist but it doesn't
