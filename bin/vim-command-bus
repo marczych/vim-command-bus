@@ -25,7 +25,8 @@ function main {
 
     # Run the command immediately if requested.
     if [[ "$run_initial" == true ]]; then
-        "$@"
+        # Don't exit if this fails.
+        "$@" || true
     fi
 
     # PlatformSpecific appears to be an event that is fired exactly once for
